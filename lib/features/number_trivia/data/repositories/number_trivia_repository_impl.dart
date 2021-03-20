@@ -30,6 +30,14 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
       return remoteDataSource.getConcreteNumberTrivia(number);
     });
   }
+  @override
+  Future<Either<Failure, NumberTrivia>> getYearNumberTrivia(
+    int number,
+  ) async {
+    return await _getTrivia(() {
+      return remoteDataSource.getYearNumberTrivia(number);
+    });
+  }
 
   @override
   Future<Either<Failure, NumberTrivia>> getRandomNumberTrivia() async {

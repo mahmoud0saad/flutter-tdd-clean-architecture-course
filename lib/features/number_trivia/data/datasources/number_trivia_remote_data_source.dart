@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:clean_architecture_tdd_course/core/error/failures.dart';
+import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart';
+import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
@@ -16,6 +19,8 @@ abstract class NumberTriviaRemoteDataSource {
   ///
   /// Throws a [ServerException] for all error codes.
   Future<NumberTriviaModel> getRandomNumberTrivia();
+
+  Future<NumberTriviaModel> getYearNumberTrivia(int number);
 }
 
 class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
@@ -45,4 +50,10 @@ class NumberTriviaRemoteDataSourceImpl implements NumberTriviaRemoteDataSource {
       throw ServerException();
     }
   }
+
+  @override
+  Future<NumberTriviaModel> getYearNumberTrivia(int number) =>
+      _getTriviaFromUrl('http://numbersapi.com/$number/year');
+
+
 }
